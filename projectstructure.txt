@@ -1,0 +1,28 @@
+watch2gether/
+│
+├── frontend/
+│   │
+│   ├── public/
+│   │
+│   ├── src/
+│   │   │
+│   │   ├── components/
+│   │   │      Player.jsx
+│   │   │
+│   │   ├── services/
+│   │   │      youtube.js
+│   │   │
+│   │   ├── socket.js
+│   │   ├── App.jsx
+│   │   └── main.jsx
+│   │
+│   ├── package.json
+│   └── vite.config.js
+│
+├── backend/
+│   │
+│   ├── server.js
+│   ├── package.json
+│   └── node_modules/
+│
+└── README.md
