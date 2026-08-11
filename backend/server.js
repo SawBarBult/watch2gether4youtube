@@ -11,7 +11,7 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
     cors: {
-        origin: "https://watch2gether4youtube.vercel.app/",
+        origin: "https://watch2gether4youtube.vercel.app",
     },
 });
 
