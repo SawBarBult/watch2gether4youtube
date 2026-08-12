@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import socket from "../socket";
+import "./Player.css";
 
 function Player({ videoId, role }) {
     console.log("Player received role:", role);
