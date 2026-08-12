@@ -149,6 +149,21 @@ io.on("connection", (socket) => {
         io.to(host).emit("requestSync", socket.id);
     });
 
+
+    // for local video synchronization
+
+    socket.on("localVideoPlay", () => {
+        console.log("Host played local video. Room:", socket.room);
+
+        io.to(socket.room).emit("localVideoPlay");
+    });
+
+    socket.on("localVideoPause", () => {
+        console.log("Host paused local video. Room:", socket.room);
+
+        io.to(socket.room).emit("localVideoPause");
+    });
+
     // Handle sync response from host
 
     socket.on("syncResponse", ({ guestSocketId, currentTime, isPlaying }) => {
