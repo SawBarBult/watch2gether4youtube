@@ -1,6 +1,7 @@
 .player {
   width: 95vw;
   aspect-ratio: 16 / 9;
+  max-width: 1200px;
   margin: 5px auto;
 }
 

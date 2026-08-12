@@ -157,11 +157,11 @@ function LocalVideoPlayer({ role }) {
                     ref={videoRef}
                     src={videoUrl}
                     controls
-                    width="600"
                     onLoadedMetadata={handleLoadedMetadata}
                     onPlay={handlePlay}
                     onPause={handlePause}
                     onSeeked={handleSeeked}
+                    className="player"
                 />
             )}
 
