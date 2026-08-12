@@ -1,5 +1,10 @@
-#player{
-    width: 95vw;
-    height: 100%;
-    margin: 10px auto;
+.player {
+  width: 95vw;
+  aspect-ratio: 16 / 9;
+  margin: 5px auto;
+}
+
+.player iframe {
+  width: 100%;
+  height: 100%;
 }

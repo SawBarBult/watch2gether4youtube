@@ -35,9 +35,7 @@ function Player({ videoId, role }) {
     function createPlayer() {
         if (playerRef.current) return;
 
-        playerRef.current = new window.YT.Player(playerContainerRef.current, {
-            width: "640",
-            height: "390",
+        playerRef.current = new window.YT.Player(playerContainerRef.current, {            
             videoId: "",
 
             events: {
@@ -245,7 +243,7 @@ function Player({ videoId, role }) {
         <div>
             <h2>YouTube Player</h2>
 
-            <div ref={playerContainerRef} id="player"></div>
+            <div ref={playerContainerRef} className="player"></div>
         </div>
     );
 }
