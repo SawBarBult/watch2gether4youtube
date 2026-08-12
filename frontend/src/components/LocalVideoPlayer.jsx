@@ -37,6 +37,18 @@ function LocalVideoPlayer({ role }) {
         socket.emit("localVideoPause");
     }
 
+    function handleSeeked() {
+        if (role !== "host") {
+            return;
+        }
+
+        const currentTime = videoRef.current.currentTime;
+
+        console.log("Host seeked local video:", currentTime);
+
+        socket.emit("localVideoSeek", currentTime);
+    }
+
     useEffect(() => {
         function handleGuestPlay() {
             if (role !== "guest") {
@@ -74,6 +86,26 @@ function LocalVideoPlayer({ role }) {
             }
         };
     }, [videoUrl]);
+
+    useEffect(() => {
+        function handleGuestSeek(currentTime) {
+            if (role !== "guest") {
+                return;
+            }
+
+            console.log("Guest received local seek:", currentTime);
+
+            if (videoRef.current) {
+                videoRef.current.currentTime = currentTime;
+            }
+        }
+
+        socket.on("localVideoSeek", handleGuestSeek);
+
+        return () => {
+            socket.off("localVideoSeek", handleGuestSeek);
+        };
+    }, [role]);
 
     return (
         <>

@@ -164,6 +164,12 @@ io.on("connection", (socket) => {
         io.to(socket.room).emit("localVideoPause");
     });
 
+    socket.on("localVideoSeek", (currentTime) => {
+        console.log("Host seeked local video. Room:", socket.room);
+
+        io.to(socket.room).emit("localVideoSeek", currentTime);
+    });
+
     // Handle sync response from host
 
     socket.on("syncResponse", ({ guestSocketId, currentTime, isPlaying }) => {
