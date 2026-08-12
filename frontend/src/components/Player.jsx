@@ -245,7 +245,7 @@ function Player({ videoId, role }) {
         <div>
             <h2>YouTube Player</h2>
 
-            <div ref={playerContainerRef}></div>
+            <div ref={playerContainerRef} id="player"></div>
         </div>
     );
 }
