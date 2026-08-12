@@ -49,6 +49,12 @@ function LocalVideoPlayer({ role }) {
         socket.emit("localVideoSeek", currentTime);
     }
 
+    function handleLoadedMetadata() {
+        console.log("Local video metadata loaded");
+
+        socket.emit("localVideoReady");
+    }
+
     useEffect(() => {
         function handleGuestPlay() {
             if (role !== "guest") {
@@ -107,6 +113,34 @@ function LocalVideoPlayer({ role }) {
         };
     }, [role]);
 
+    useEffect(() => {
+        function handleLocalVideoSync(state) {
+            if (role !== "guest") {
+                return;
+            }
+
+            console.log("Received local video sync:", state);
+
+            if (!videoRef.current) {
+                return;
+            }
+
+            videoRef.current.currentTime = state.currentTime;
+
+            if (state.isPlaying) {
+                videoRef.current.play();
+            } else {
+                videoRef.current.pause();
+            }
+        }
+
+        socket.on("localVideoSync", handleLocalVideoSync);
+
+        return () => {
+            socket.off("localVideoSync", handleLocalVideoSync);
+        };
+    }, [role]);
+
     return (
         <>
             <h2>Local Video</h2>
@@ -123,6 +157,7 @@ function LocalVideoPlayer({ role }) {
                     src={videoUrl}
                     controls
                     width="600"
+                    onLoadedMetadata={handleLoadedMetadata}
                     onPlay={handlePlay}
                     onPause={handlePause}
                     onSeeked={handleSeeked}

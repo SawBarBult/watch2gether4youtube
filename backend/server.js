@@ -33,7 +33,11 @@ io.on("connection", (socket) => {
                 host: null,
                 videoId: null,
                 isPlaying: false,
-                currentTime: 0
+                currentTime: 0,
+                localVideo: {
+                    isPlaying: false,
+                    currentTime: 0
+                }
             };
         }
 
@@ -153,22 +157,64 @@ io.on("connection", (socket) => {
     // for local video synchronization
 
     socket.on("localVideoPlay", () => {
-        console.log("Host played local video. Room:", socket.room);
+        const room = socket.room;
 
-        io.to(socket.room).emit("localVideoPlay");
+        if (!room || !rooms[room]) {
+            return;
+        }
+
+        console.log("Host played local video. Room:", room);
+
+        rooms[room].localVideo.isPlaying = true;
+
+        io.to(room).emit("localVideoPlay");
     });
 
     socket.on("localVideoPause", () => {
-        console.log("Host paused local video. Room:", socket.room);
+        const room = socket.room;
 
-        io.to(socket.room).emit("localVideoPause");
+        if (!room || !rooms[room]) {
+            return;
+        }
+
+        console.log("Host paused local video. Room:", room);
+
+        rooms[room].localVideo.isPlaying = false;
+
+        io.to(room).emit("localVideoPause");
     });
 
     socket.on("localVideoSeek", (currentTime) => {
-        console.log("Host seeked local video. Room:", socket.room);
+        const room = socket.room;
 
-        io.to(socket.room).emit("localVideoSeek", currentTime);
+        if (!room || !rooms[room]) {
+            return;
+        }
+
+        console.log("Host seeked local video. Room:", room);
+
+        rooms[room].localVideo.currentTime = currentTime;
+
+        io.to(room).emit("localVideoSeek", currentTime);
     });
+
+    socket.on("localVideoReady", () => {
+        const room = socket.room;
+
+        if (!room || !rooms[room]) {
+            return;
+        }
+
+        const localVideoState = rooms[room].localVideo;
+
+        console.log(
+            `${socket.id} local video is ready in ${room}`
+        );
+
+        socket.emit("localVideoSync", localVideoState);
+    });
+
+    
 
     // Handle sync response from host
 
