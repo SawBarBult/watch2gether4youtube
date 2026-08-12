@@ -125,6 +125,7 @@ function LocalVideoPlayer({ role }) {
                     width="600"
                     onPlay={handlePlay}
                     onPause={handlePause}
+                    onSeeked={handleSeeked}
                 />
             )}
 
