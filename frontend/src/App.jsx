@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Player from "./components/Player";
+import LocalVideoPlayer from "./components/LocalVideoPlayer";
 import socket from "./socket";
 import { extractVideoId } from "./services/youtube";
 
@@ -155,6 +156,9 @@ function App() {
             </button>
 
             <Player videoId={videoId} role={role} />
+            <hr />
+
+            <LocalVideoPlayer role={role} />
         </>
     );
 }
