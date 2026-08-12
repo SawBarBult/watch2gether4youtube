@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import socket from "../socket";
+import "./Player.css";
 
 function LocalVideoPlayer({ role }) {
     const videoRef = useRef(null);
