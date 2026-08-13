@@ -147,17 +147,25 @@ function App() {
                 onChange={(e) => setVideoUrl(e.target.value)}
             />
 
-            <button onClick={loadVideo}>
-                Load Video
-            </button>
+            
 
             {/* <button onClick={sayHello}>
                 Say Hello
             </button> */}
 
+            
+
+            <button onClick={loadVideo}>
+                Load Video
+            </button>
+
+            <br></br>
+
             <button onClick={() => setVideoUrl("")}>
                 Clear
             </button>
+            
+            
 
             <Player videoId={videoId} role={role} />
             <hr />
