@@ -151,8 +151,12 @@ function App() {
                 Load Video
             </button>
 
-            <button onClick={sayHello}>
+            {/* <button onClick={sayHello}>
                 Say Hello
+            </button> */}
+
+            <button onClick={() => setVideoUrl("")}>
+                Clear
             </button>
 
             <Player videoId={videoId} role={role} />
